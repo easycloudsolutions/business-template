@@ -1,18 +1,35 @@
 # Push to main → sync this repo's config into Easy Cloud, then prove retrieval.
 # Needs one repository secret: EASYCLOUD_TOKEN (issued by Easy Cloud, scoped to this business).
+# Until it is stored, sync is skipped with a notice instead of failing (fresh copies of the template).
 name: sync
 on:
   push:
     branches: [main]
   workflow_dispatch:
 jobs:
+  token:
+    runs-on: ubuntu-latest
+    outputs:
+      present: ${{ steps.check.outputs.present }}
+    steps:
+      - id: check
+        env:
+          EASYCLOUD_TOKEN: ${{ secrets.EASYCLOUD_TOKEN }}
+        run: |
+          if [ -n "$EASYCLOUD_TOKEN" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::EASYCLOUD_TOKEN is not set, so sync was skipped. Add it under Settings > Secrets and variables > Actions."
+          fi
   sync:
+    needs: token
+    if: needs.token.outputs.present == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
       - name: Sync bot + business
         run: node scripts/sync.mjs
         env:
