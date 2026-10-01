@@ -1,0 +1,15 @@
+# Pull requests → run the eval against what is live. No secret needed.
+# (New items in the PR are not live yet, so their cases will miss until the
+# PR merges and sync runs — the check shows you which ones.)
+name: eval
+on:
+  pull_request:
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/eval.mjs

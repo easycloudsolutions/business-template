@@ -1,0 +1,42 @@
+{
+  "_readme": [
+    "Your chatbot. Same shape as the platform's seed/TEMPLATE.json, so a business can move between repos.",
+    "bot_id: 2-63 chars, lowercase letters/digits/hyphens. Fixed at onboarding — it is the chat URL and widget id.",
+    "settings: only these keys are accepted: tone, system_rules, fallback_message, greeting, brand_color, lead_capture, handoff_email, retrieval_floor, min_context_chars, closed_book, always_include_titles.",
+    "items: keep every item UNDER 1200 chars. Start content with a Q-line listing every phrasing a visitor might use, blank line, then 'A: ...'.",
+    "items: title is the unique key — never rename a live item; add a new one instead. Sync only ADDS items by title; to change live text, ask Easy Cloud.",
+    "eval: one [question, expected item title] per Q-line phrasing, in the same commit as the item. CI fails the push if any question misses.",
+    "Never put prices or promises in system_rules or items that you have not confirmed in writing."
+  ],
+  "bot_id": "acme-plumbing",
+  "name": "Acme Plumbing Assistant",
+  "settings": {
+    "tone": "friendly, plain-spoken, brief",
+    "system_rules": "Answer only from the provided context. If unsure, say so and offer the phone number.",
+    "fallback_message": "I don't have that information, but the team can help — call (555) 010-0100 or use the contact form.",
+    "greeting": "Hi! Ask me about our services, hours, or how to book a visit.",
+    "brand_color": "#0f766e",
+    "lead_capture": true,
+    "handoff_email": "office@example.com"
+  },
+  "items": [
+    {
+      "title": "What does Acme Plumbing do?",
+      "source_type": "faq",
+      "source_url": "https://example.com/services",
+      "content": "Q: What do you do? What services do you offer? Do you do drain cleaning? Do you handle water heaters?\n\nA: Acme Plumbing is a licensed residential plumber serving the South Bay. We handle drain cleaning, water heater repair and replacement, leak detection, and fixture installs. Call (555) 010-0100 to book a visit."
+    },
+    {
+      "title": "Hours and service area",
+      "source_type": "faq",
+      "source_url": "https://example.com/contact",
+      "content": "Q: What are your hours? Are you open on weekends? Do you serve Torrance? What areas do you cover?\n\nA: We take calls Monday to Saturday, 7am to 6pm, and offer emergency service after hours. We serve Torrance, Redondo Beach, Gardena, and the surrounding South Bay."
+    }
+  ],
+  "eval": [
+    ["what do you guys do", "What does Acme Plumbing do?"],
+    ["do you fix water heaters", "What does Acme Plumbing do?"],
+    ["are you open saturday", "Hours and service area"],
+    ["do you come out to redondo beach", "Hours and service area"]
+  ]
+}

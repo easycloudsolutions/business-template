@@ -1,0 +1,29 @@
+{
+  "_readme": [
+    "Your VoiceBot phone receptionist. Delete this file if you only use the chatbot.",
+    "id: same rules as bot_id; usually the same value. Fixed at onboarding.",
+    "vapi_assistant_id: Easy Cloud fills this in after creating your assistant. phone_number: your inbound line in E.164 (+1...).",
+    "services: spoken name → { eventTypeId (your Cal.com event type), price (what the agent may quote), minutes }. The agent quotes ONLY these prices.",
+    "settings: only hours, address, parking_note, type, city. They go into the agent's prompt word for word.",
+    "owner_email / owner_phone: where bookings and messages are sent. Not secret — your Cal.com key is NOT in this file; Easy Cloud holds it.",
+    "Changing name, timezone, services or settings needs Easy Cloud to re-push the phone assistant; CI prints a reminder when that applies."
+  ],
+  "id": "acme-plumbing",
+  "name": "Acme Plumbing",
+  "vapi_assistant_id": null,
+  "phone_number": null,
+  "timezone": "America/Los_Angeles",
+  "owner_email": "office@example.com",
+  "owner_phone": "+15550100100",
+  "services": {
+    "drain cleaning": { "eventTypeId": 123456, "price": "$150", "minutes": 60 },
+    "water heater": { "eventTypeId": 123457, "price": "$95 diagnostic", "minutes": 45 }
+  },
+  "settings": {
+    "type": "plumber",
+    "city": "Torrance",
+    "hours": "Monday to Saturday, 7am to 6pm; emergency service after hours",
+    "address": "123 Main St, Torrance",
+    "parking_note": "free lot behind the building"
+  }
+}
